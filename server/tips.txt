@@ -1,0 +1,12 @@
+steps:
+1. install express
+2. install dotenv
+3. intall mongoDB
+4. create connection with the db
+5. create the schema to each field
+6. create the controller
+7. probar las rutas con postman 
+8. bcryptjs => incriptar las contraseñas
+9. express-validator => para validar los datos del fomr (las reglas van en el router y el resultado en el controlador)
+10. cuando se tenga la validacion para los campos y la verificacion si el usuario esta registrado, lo que queda es crear el JWT (jeison web token)
+11. yarn add jsonwebtoken => en php serian las sesiones
