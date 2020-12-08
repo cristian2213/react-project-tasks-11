@@ -19,9 +19,19 @@ router.post('/',
 );
 
 // get tasks
-/* router.get('/',
+router.get('/',
   auth,
-  taskController.getTasks()
+  taskController.getTasks
 );
- */
+
+// update task
+router.put('/:id',
+  auth,
+  taskController.updateTask
+);
+
+router.delete('/:id',
+  auth,
+  taskController.deleteTask
+);
 module.exports = router;

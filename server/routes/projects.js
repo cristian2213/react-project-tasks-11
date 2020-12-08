@@ -18,7 +18,7 @@ router.post('/',
   projectController.createProject
 );
 
-// get all prjects
+// get prjects
 router.get('/',
   auth,
   projectController.getProjects

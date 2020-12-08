@@ -10,20 +10,22 @@ const TaskSchema = new Schema({
 
   state: {
     type: Boolean,
-    default: false
+    default: false,
+    required: true,
   },
 
-  created_at: {
-    type: Date,
-    default: Date.now(),
-  },
 
   project: {
     // to save the project id
     type: mongoose.Schema.Types.ObjectId,
     // referencia to the colletion
     ref: 'Project'
-  }
+  },
+
+  created_at: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 module.exports = mongoose.model('Task', TaskSchema);

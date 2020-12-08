@@ -58,6 +58,7 @@ exports.updateProject = async (req, res) => {
   const { name } = req.body;
   const newProject = {};
 
+  // each field will validate with a unique If
   if (name) {
     newProject.name = name;
   }
@@ -66,10 +67,9 @@ exports.updateProject = async (req, res) => {
 
     // check id
     const { id } = req.params;
-    const project = await Project.findById(id);
-
 
     // check if exists a project
+    const project = await Project.findById(id);
     if (!project) {
       return res.status(404).json({ msg: "The project doesn't exist" });
     }
