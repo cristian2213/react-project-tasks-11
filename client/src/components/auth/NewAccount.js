@@ -1,7 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const NewAccount = () => {
+// context import
+import AlertContext from '../../context/alerts/AlertContext';
+import AuthContext from '../../context/auth/AuthContext';
+
+// cuando se usa react-router-dom se tiene accesso a props.history
+const NewAccount = (props) => {
+
+  // alert context
+  const alertContext = useContext(AlertContext);
+  const { alert, showAlert } = alertContext;
+  // auth context
+  const authContext = useContext(AuthContext);
+  const { message, authenticated, registerUser } = authContext;
+
+  // at case that exists an authentication, register or register error
+  useEffect(() => {
+    if (authenticated) {
+      props.history.push('/projects');
+    }
+    if (message) {
+      showAlert(message.msg, message.category);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [message, authenticated, props.history]);
 
   // state to log in
   const [user, saveUser] = useState({
@@ -21,20 +45,39 @@ const NewAccount = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // validate both fields
+    // validate all fields
+    if (name.trim() === '' || email.trim() === '' || password.trim() === '' || confirm.trim() === '') {
+      showAlert('All fields are required', 'alerta-error');
+      return;
+    }
 
     // both passwords with minimum six characters
+    if (password.length < 6) {
+      showAlert('The password must be at least 6 characters', 'alerta-error');
+      return;
+    }
 
-    // send to the action
+    // validate if both fields are equal
+    if (password !== confirm) {
+      showAlert('The password must be equal', 'alerta-error');
+      return;
+    }
+
+    // send to the action, this a function that will communicate with our API
+    registerUser({
+      name,
+      email,
+      password
+    });
+
   }
 
   return (
     <div className="form-usuario">
+      {alert ? (<div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}
       <div className="contenedor-form sombra-dark">
-        <h1>Sing in</h1>
-
+        <h1>Sign in</h1>
         <form onSubmit={handleSubmit}>
-
           <div className="campo-form">
             <label htmlFor="name">Name</label>
             <input

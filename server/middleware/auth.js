@@ -16,7 +16,6 @@ module.exports = function (req, res, next) {
     // return the payload
     const encryption = jwt.verify(token, process.env.SECRET_WORD_JWT);
 
-
     // create a new object with the token (id)
     req.user = encryption.user;
 

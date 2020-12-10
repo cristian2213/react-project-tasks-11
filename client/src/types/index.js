@@ -15,3 +15,17 @@ export const STATE_TASK = 'STATE_TASK';
 export const CURRENT_TASK = 'CURRENT_TASK';
 export const UPDATE_TASK = 'UPDATE_TASK';
 export const CLEAN_TASK = 'CLEAN_TASK';
+
+// Alert
+export const SHOW_ALERT = 'SHOW_ALERT';
+export const HIDEN_ALERT = 'HIDEN_ALERT';
+
+// logn in
+export const SUCCESSFUL_REGISTRATION = 'SUCCESSFUL_REGISTRATION';
+export const ERROR_REGISTRATION = 'ERROR_REGISTRATION';
+
+// log in
+export const LOGIN_SUCCESSFUL = 'LOGIN_SUCCESSFUL';
+export const GET_USER = 'GET_USER';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const LOG_OUT = 'LOG_OUT'; 

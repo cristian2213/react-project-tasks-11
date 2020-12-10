@@ -1,7 +1,30 @@
-import React, { useState, useContext, useReducer } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import AlertContext from '../../context/alerts/AlertContext';
+import AuthContext from '../../context/auth/AuthContext';
 
-const Login = () => {
+const Login = props => {
+
+  // alert context
+  const alertContext = useContext(AlertContext);
+  const { alert, showAlert } = alertContext;
+
+  // auth context
+  const authContext = useContext(AuthContext);
+  const { authenticated, message, logIn } = authContext;
+
+  useEffect(() => {
+    if (authenticated) {
+      // redirect
+      props.history.push('/projects');
+    }
+
+    if (message) {
+      showAlert(message.msg, message.category);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authenticated, message, props.history]);
 
   // state to log in
   const [user, saveUser] = useState({ email: '', password: '' });
@@ -17,12 +40,18 @@ const Login = () => {
     e.preventDefault();
 
     // validate both fields
+    if (email.trim() === '' || password.trim() === '') {
+      showAlert('All fields are required', 'alerta-error');
+      return;
+    }
 
     // send to the action
+    logIn({ email, password });
   }
 
   return (
     <div className="form-usuario">
+      {alert ? (<div className={`alerta ${alert.category}`}>{alert.msg}</div>) : null}
       <div className="contenedor-form sombra-dark">
         <h1>Log in</h1>
 
@@ -60,7 +89,7 @@ const Login = () => {
           </div>
         </form>
         <Link to='/new-account' className="enlace-cuenta">
-          Sing in
+          Sign in
         </Link>
       </div>
     </div>

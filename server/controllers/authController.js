@@ -5,12 +5,6 @@ const jwt = require('jsonwebtoken');
 
 exports.authenticationUser = async (req, res) => {
 
-  const errors = validationResult(req);
-  // check if there are errors
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
   // extract user and password
   const { email, password } = req.body;
 
@@ -50,6 +44,21 @@ exports.authenticationUser = async (req, res) => {
 
   } catch (error) {
     console.log(error);
-    res.status(400).send('There was an error');
+    res.status(400).json({ error: 'There was an error' });
+  }
+}
+
+// get authenticated User
+exports.authenticatedUser = async (req, res) => {
+
+  // get user authenticated
+  const { id } = req.user;
+  try {
+    // does not return the password
+    const user = await User.findById(id).select('-password');
+    res.json({ user });
+
+  } catch (error) {
+    res.status(500).json({ error: 'There was an error' });
   }
 }

@@ -2,6 +2,24 @@ const express = require('express');
 const app = express();
 const connectDB = require('./config/db');
 
+// enable cors
+const cors = require('cors');
+/* const whitelist = ['http://localhost:3000'];
+const corsOptions = { // config object
+  origin: (origin, callback) => {
+    const exist = whitelist.some((dominio) => dominio === origin);
+    if (exist) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+} */
+
+// enable 
+// /app.use(cors(corsOptions));
+app.use(cors());
+
 // connect to the Data Base
 connectDB();
 
