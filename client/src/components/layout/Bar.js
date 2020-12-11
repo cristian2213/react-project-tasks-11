@@ -13,10 +13,10 @@ const Bar = () => {
   const { user, userAuthenticated, logOut } = authContext;
 
   // this method I think that it is useless, because user is get in the projects component
-  //useEffect(() => {
-  //  userAuthenticated();
-  //  // eslint-disable-next-line react-hooks/exhaustive-deps
-  //}, []);
+  useEffect(() => {
+    userAuthenticated();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <header className="app-header">

@@ -27,7 +27,8 @@ const AuthState = props => {
     token: localStorage.getItem('token'),
     authenticated: null,
     user: null,
-    message: null
+    message: null,
+    loading: true
   }
 
   // dispatch to execute the different actions
@@ -78,7 +79,7 @@ const AuthState = props => {
       });
 
     } catch (error) {
-      console.log(error.response);
+      //console.log(error.response);
       dispatch({
         type: LOGIN_ERROR
       });
@@ -129,6 +130,7 @@ const AuthState = props => {
         authenticated: state.authenticated,
         user: state.user,
         message: state.message,
+        loading: state.loading,
         registerUser,
         userAuthenticated,
         logIn,

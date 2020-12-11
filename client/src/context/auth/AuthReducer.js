@@ -18,16 +18,19 @@ export default (state, action) => {
       return {
         ...state,
         authenticated: true,
-        message: null
+        message: null,
+        loading: false
       }
 
     case GET_USER:
       return {
         ...state,
         user: action.payload.user,
-        authenticated: true
+        authenticated: true,
+        loading: false
       }
 
+    case LOG_OUT:
     case LOGIN_ERROR:
     case ERROR_REGISTRATION:
       // delete token only if it exits
@@ -35,17 +38,10 @@ export default (state, action) => {
       return {
         ...state,
         token: null,
-        message: action.payload,
-      }
-
-    case LOG_OUT:
-      localStorage.removeItem('token');
-      return {
-        ...state,
-        token: null,
         user: null,
         authenticated: null,
-        message: null
+        message: action.payload,
+        loading: false
       }
 
     default:

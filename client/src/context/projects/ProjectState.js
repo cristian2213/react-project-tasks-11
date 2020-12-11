@@ -1,4 +1,8 @@
 import React, { useReducer } from 'react';
+
+// axios client
+import clientAxios from '../../config/axios';
+
 // context
 import ProjectContext from './ProjectContext';
 // reducer
@@ -14,23 +18,24 @@ import {
 } from '../../types/index';
 
 // generate id for each item
-import uuid from 'uuid/dist/v4';
+//import uuid from 'uuid/dist/v4';
 
 // this is the status manager for all Project components 
 const ProjectState = props => {
 
-  const projects = [
+  /* const projects = [
     { id: 1, name: 'Virtual store' },
     { id: 2, name: 'Intranet' },
     { id: 3, name: 'Webside design' },
     { id: 4, name: 'Webside design two' },
-  ];
+  ]; */
 
   const initialState = {
     projects: [],
     form: false,
     form_error: false,
     project: null,
+    alert_project: null
   }
 
   // dispach to execute the actions, Reducer is the same a useState
@@ -44,23 +49,37 @@ const ProjectState = props => {
   }
 
   // payload: carga útil:
-  const getProjects = () => {
-    dispatch({
-      type: GET_PROJECTS,
-      payload: projects
-    });
+  const getProjects = async () => {
+    try {
+      const responseApi = await clientAxios.get('/api/projects');
+
+      dispatch({
+        type: GET_PROJECTS,
+        payload: responseApi.data.projects
+      });
+
+    } catch (error) {
+      console.log(error.response);
+    }
   }
 
   // add new project 
-  const addProject = project => {
+  const addProject = async project => {
     // when a new project has been created, so add id, this is for dev
-    project.id = uuid();
+    //project.id = uuid();
 
-    // insert project in the state with a dispactch
-    dispatch({
-      type: ADD_PROJECT,
-      payload: project
-    })
+    try {
+      const responseApi = await clientAxios.post('/api/projects', project);
+
+      // insert project in the state with a dispactch
+      dispatch({
+        type: ADD_PROJECT,
+        payload: responseApi.data.project
+      });
+
+    } catch (error) {
+      console.log(error.response);
+    }
   }
 
   // validate form by erros

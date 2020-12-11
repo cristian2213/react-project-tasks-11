@@ -21,6 +21,10 @@ import AuthState from './context/auth/AuthState';
 // auth token
 import tokenAuth from './config/tokenAuth';
 
+// routes private 
+import PrivateRoute from './components/routes/PrivateRoute';
+
+
 // check if there's a token
 const token = localStorage.getItem('token');
 if (token) {
@@ -38,7 +42,8 @@ function App() {
               <Switch>
                 <Route exact path='/' component={Login} />
                 <Route exact path='/new-account' component={NewAccount} />
-                <Route exact path='/projects' component={Projects} />
+                {/* ruta privada, solo tiene acceso si el user esta autenticado */}
+                <PrivateRoute exact path='/projects' component={Projects} />
               </Switch>
             </Router>
           </AuthState>
