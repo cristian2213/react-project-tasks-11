@@ -15,6 +15,7 @@ import {
   FORM_VALIDATE,
   CURRENT_PROJECT,
   DELETE_PROJECT,
+  ERROR_PROJECT
 } from '../../types/index';
 
 // generate id for each item
@@ -35,7 +36,7 @@ const ProjectState = props => {
     form: false,
     form_error: false,
     project: null,
-    alert_project: null
+    message: null
   }
 
   // dispach to execute the actions, Reducer is the same a useState
@@ -59,7 +60,16 @@ const ProjectState = props => {
       });
 
     } catch (error) {
-      console.log(error.response);
+      console.log(error);
+      const alert = {
+        msg: 'There was an error',
+        category: 'alerta-error'
+      }
+
+      dispatch({
+        type: ERROR_PROJECT,
+        payload: alert
+      });
     }
   }
 
@@ -78,7 +88,16 @@ const ProjectState = props => {
       });
 
     } catch (error) {
-      console.log(error.response);
+      console.log(error);
+      const alert = {
+        msg: 'There was an error',
+        category: 'alerta-error'
+      }
+
+      dispatch({
+        type: ERROR_PROJECT,
+        payload: alert
+      });
     }
   }
 
@@ -98,11 +117,27 @@ const ProjectState = props => {
   }
 
   // delete project 
-  const deleteProject = (projectId) => {
-    dispatch({
-      type: DELETE_PROJECT,
-      payload: projectId
-    });
+  const deleteProject = async (projectId) => {
+    try {
+      await clientAxios.delete(`/api/projects/${projectId}`);
+
+      dispatch({
+        type: DELETE_PROJECT,
+        payload: projectId
+      });
+
+    } catch (error) {
+      console.log(error);
+      const alert = {
+        msg: 'There was an error',
+        category: 'alerta-error'
+      }
+
+      dispatch({
+        type: ERROR_PROJECT,
+        payload: alert
+      });
+    }
   }
 
   return (
@@ -113,6 +148,7 @@ const ProjectState = props => {
         form: state.form,
         form_error: state.form_error,
         project: state.project,
+        message: state.message,
         showForm,
         getProjects,
         addProject,

@@ -9,6 +9,10 @@ import TaskContext from '../../context/tasks/TaskContext';
 import Task from '../tasks/Task';
 
 const TasksList = () => {
+
+  // prevent FindDOMNode error
+  const nodeRef = React.useRef(null);
+
   // using the project context
   const projectContext = useContext(ProjectContext);
   const { project, deleteProject } = projectContext;
@@ -32,9 +36,10 @@ const TasksList = () => {
           <TransitionGroup>
             {project_tasks.map(task => (
               <CSSTransition
-                key={task.id}
+                key={task._id}
                 timeout={200}
                 classNames="tarea"
+                ref={nodeRef}
               >
                 <Task
                   task={task}
@@ -50,7 +55,7 @@ const TasksList = () => {
         to='/projects'
         type="button"
         className="btn btn-eliminar"
-        onClick={() => deleteProject(currentProject.id)}
+        onClick={() => deleteProject(currentProject._id)}
       >Delete Project &times;</button>
 
     </Fragment>

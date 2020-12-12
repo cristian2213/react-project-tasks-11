@@ -15,7 +15,7 @@ const Task = ({ task }) => {
 
   const deleteTaskUi = id => {
     deleteTask(id);
-    getTasks(task.projectId);
+    getTasks(task.project);
     cleanTask();
   }
 

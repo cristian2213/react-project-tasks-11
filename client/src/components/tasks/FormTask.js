@@ -57,11 +57,11 @@ const FormTask = () => {
     // validate if the user is editing the task or adding a task
     if (selected_task === null) {
       // add new task
-      task.projectId = currentProject.id;
+      task.project = currentProject._id;
       addTask(task);
 
       // get the project tasks
-      getTasks(currentProject.id);
+      getTasks(currentProject._id);
       //restart the form
       saveTask({
         name: ''

@@ -348,3 +348,23 @@ aside  {
   background-color: rgb(230, 78, 78);
   color: var(--blanco);
 }
+
+.text-center {
+  text-align: center;
+}
+
+.alert-position {
+  position: absolute;
+  width: 80%;
+  top: 3rem;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  font-family: var(--headingFont);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 2.2rem;
+  text-align: center;
+  left: 0px;
+  right: 0px;
+  margin: 0 auto;
+}

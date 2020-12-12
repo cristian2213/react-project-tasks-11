@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+//import { v4 as uuidv4 } from 'uuid';
 // import context
 import TaskContext from './TaskContext';
 // import reducer
@@ -16,30 +16,24 @@ import {
   CLEAN_TASK
 } from '../../types/index';
 
+// clientAxios
+import clientAxios from '../../config/axios';
+
 const TaskState = props => {
 
   // create state
   const initialState = {
-    tasks: [
-      { id: 1, name: 'Choose1 Platform', state: false, projectId: 1 },
-      { id: 2, name: 'Choose2 Colors', state: true, projectId: 2 },
-      { id: 3, name: 'Choose3 Hosting', state: false, projectId: 3 },
-      { id: 4, name: 'Choose4 pay Platform', state: true, projectId: 4 },
-      { id: 5, name: 'Choose5 Platform', state: false, projectId: 1 },
-      { id: 6, name: 'Choose6 Colors', state: true, projectId: 4 },
-      { id: 7, name: 'Choose7 Hosting', state: false, projectId: 2 },
-      { id: 8, name: 'Choose8 pay Platform', state: true, projectId: 3 },
-      { id: 9, name: 'Choose9 Platform', state: false, projectId: 2 },
-      { id: 10, name: 'Choose10 Colors', state: true, projectId: 3 },
-      { id: 11, name: 'Choose11 Hosting', state: false, projectId: 1 },
-      { id: 12, name: 'Choose12 pay Platform', state: true, projectId: 4 },
-      { id: 13, name: 'Choose13 pay Platform', state: true, projectId: 3 },
-      { id: 14, name: 'Choose14 Platform', state: false, projectId: 4 },
-      { id: 15, name: 'Choose15 Colors', state: true, projectId: 3 },
-      { id: 16, name: 'Choose16 Hosting', state: false, projectId: 2 },
-      { id: 17, name: 'Choose17 pay Platform', state: true, projectId: 1 },
-    ],
-    projectTasks: null,
+    //tasks: [
+    /*    { id: 10, name: 'Choose10 Colors', state: true, projectId: 3 },
+       { id: 11, name: 'Choose11 Hosting', state: false, projectId: 1 },
+       { id: 12, name: 'Choose12 pay Platform', state: true, projectId: 4 },
+       { id: 13, name: 'Choose13 pay Platform', state: true, projectId: 3 },
+       { id: 14, name: 'Choose14 Platform', state: false, projectId: 4 },
+       { id: 15, name: 'Choose15 Colors', state: true, projectId: 3 },
+       { id: 16, name: 'Choose16 Hosting', state: false, projectId: 2 },
+       { id: 17, name: 'Choose17 pay Platform', state: true, projectId: 1 }, */
+    //],
+    projectTasks: [],
     error_task: false,
     selected_task: null
   }
@@ -58,12 +52,20 @@ const TaskState = props => {
   }
 
   // add new task
-  const addTask = task => {
-    task.id = uuidv4();
-    dispatch({
-      type: ADD_TASK,
-      payload: task
-    });
+  const addTask = async task => {
+    //task.id = uuidv4();
+
+    try {
+      const response = await clientAxios.post('/api/tasks', task);
+      console.log(response.data.task);
+      dispatch({
+        type: ADD_TASK,
+        payload: response.data.task
+      });
+
+    } catch (error) {
+      console.log(error.response);
+    }
   }
 
   // validate task

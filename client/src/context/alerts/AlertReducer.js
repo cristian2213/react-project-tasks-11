@@ -4,6 +4,7 @@ import { SHOW_ALERT, HIDEN_ALERT } from '../../types/index';
 export default (state, action) => {
   switch (action.type) {
     case SHOW_ALERT:
+
       return {
         alert: action.payload
       }

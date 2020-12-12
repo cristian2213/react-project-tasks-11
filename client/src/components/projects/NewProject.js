@@ -46,41 +46,43 @@ const NewProject = () => {
   }
   return (
     <Fragment>
-      <button
-        type="button"
-        className="btn btn-block btn-primario"
+      <label
+        htmlFor="name"
+        className="btn btn-block btn-primario text-center"
         onClick={() => showForm()}
-      >New project</button>
+      >New project</label>
 
-      {form ?
-        (
-          <form
-            className="formulario-nuevo-proyecto"
-            onClick={handleSubmit}
-          >
+      {
+        form ?
+          (
+            <form
+              className="formulario-nuevo-proyecto"
+              onClick={handleSubmit}
+            >
 
-            <input
-              type="text"
-              className="input-text"
-              placeholder="Project Name"
-              name="name"
-              value={name}
-              onChange={handleChange}
-            />
+              <input
+                type="text"
+                className="input-text"
+                placeholder="Project Name"
+                name="name"
+                id="name"
+                value={name}
+                onChange={handleChange}
+              />
 
-            <input
-              type="submit"
-              className="btn btn-primario btn-block"
-              value="Add Project"
-            />
-          </form>
-        )
-        : null
+              <input
+                type="submit"
+                className="btn btn-primario btn-block"
+                value="Add Project"
+              />
+            </form>
+          )
+          : null
       }
 
-      {form_error ? <p className="mensaje error">The name is required</p> : null}
+      { form_error ? <p className="mensaje error">The name is required</p> : null}
 
-    </Fragment>
+    </Fragment >
   );
 }
 
