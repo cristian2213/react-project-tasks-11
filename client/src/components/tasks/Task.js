@@ -7,21 +7,22 @@ const Task = ({ task }) => {
   // using the task context
   const taskContext = useContext(TaskContext);
   const { getTasks,
+    updateTask,
     deleteTask,
-    changeStateTask,
     saveCurrentTask,
     cleanTask,
   } = taskContext;
 
-  const deleteTaskUi = id => {
-    deleteTask(id);
+  const deleteTaskUi = (id, project) => {
+    deleteTask(id, project);
     getTasks(task.project);
     cleanTask();
   }
 
   const handleClick = task => {
+    // change the task state without uses the dispatch
     task.state ? task.state = false : task.state = true;
-    changeStateTask(task);
+    updateTask(task);
   }
 
   // add a task when the user wants to edit it
@@ -63,7 +64,7 @@ const Task = ({ task }) => {
         <button
           type="button"
           className="btn btn-secundario"
-          onClick={() => deleteTaskUi(task.id)}
+          onClick={() => deleteTaskUi(task._id, task.project)}
         >Delete</button>
       </div>
     </li>

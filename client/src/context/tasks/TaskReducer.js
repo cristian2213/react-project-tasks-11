@@ -6,7 +6,6 @@ import {
   ADD_TASK,
   VALIDATE_TASK,
   DELETE_TASK,
-  STATE_TASK,
   CURRENT_TASK,
   UPDATE_TASK,
   CLEAN_TASK
@@ -17,7 +16,7 @@ export default (state, action) => {
     case PROJECT_TASKS:
       return {
         ...state,
-        projectTasks: state.projectTasks.filter(task => task.project === action.payload)
+        projectTasks: action.payload
       }
 
     case ADD_TASK:
@@ -40,7 +39,6 @@ export default (state, action) => {
         selected_task: null
       }
 
-    case STATE_TASK:
     case UPDATE_TASK:
       // mapea cada dato y cuando concuerde la id de la tarea con la tarea a modificar, entonces se rescribe la tarea existente con la entrante, y sino son iguales las tareas entonces retornar la tarea existente
 

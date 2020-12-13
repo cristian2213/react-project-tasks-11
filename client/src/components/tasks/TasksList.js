@@ -36,10 +36,10 @@ const TasksList = () => {
           <TransitionGroup>
             {project_tasks.map(task => (
               <CSSTransition
+                ref={nodeRef}
                 key={task._id}
                 timeout={200}
                 classNames="tarea"
-                ref={nodeRef}
               >
                 <Task
                   task={task}
