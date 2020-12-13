@@ -44,7 +44,7 @@ exports.getTasks = async (req, res) => {
   try {
 
     // extract project
-    const { project } = req.body;
+    const { project } = req.query;
 
     // verify that the project exists
     const projectExists = await Project.findById(project);
@@ -58,7 +58,7 @@ exports.getTasks = async (req, res) => {
     }
 
     // get tasks
-    const tasks = await Task.find({ project });
+    const tasks = await Task.find({ project }).sort({ _id: -1 });
 
     res.json({ tasks });
 
@@ -70,8 +70,9 @@ exports.getTasks = async (req, res) => {
 // update task
 exports.updateTask = async (req, res) => {
 
-  // extract body
+  // task body
   const { name, state, project } = req.body;
+
   // extract task id
   const { id } = req.params;
 
@@ -115,7 +116,7 @@ exports.deleteTask = async (req, res) => {
     const { id } = req.params;
 
     // extrac project (id);
-    const { project } = req.body;
+    const { project } = req.query;
 
     // verify if the tasks exists
     const task = await Task.findById(id);

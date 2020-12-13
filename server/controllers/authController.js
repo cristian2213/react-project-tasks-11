@@ -12,7 +12,7 @@ exports.authenticationUser = async (req, res) => {
     // checking if the user exists
     let user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ error: 'Username does not exist' });
+      return res.status(401).json({ msg: 'Username does not exist' });
     }
 
     // check the password: 1. password entered 2. db password
@@ -20,7 +20,7 @@ exports.authenticationUser = async (req, res) => {
 
     // password incorrect
     if (!passCorrect) {
-      return res.status(401).json({ error: 'Password incorrect' })
+      return res.status(401).json({ msg: 'Password incorrect' })
     }
 
     // if the password is correct, so create the JWT
@@ -44,7 +44,7 @@ exports.authenticationUser = async (req, res) => {
 
   } catch (error) {
     console.log(error);
-    res.status(400).json({ error: 'There was an error' });
+    res.status(400).json({ msg: 'There was an error' });
   }
 }
 
@@ -59,6 +59,6 @@ exports.authenticatedUser = async (req, res) => {
     res.json({ user });
 
   } catch (error) {
-    res.status(500).json({ error: 'There was an error' });
+    res.status(500).json({ msg: 'There was an error' });
   }
 }

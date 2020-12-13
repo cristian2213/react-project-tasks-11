@@ -12,7 +12,7 @@ const connectDB = async () => {
       useUnifiedTopology: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
-      useFindAndModify: true
+      useFindAndModify: true,
     });
     console.log('DB connected');
   } catch (error) {
