@@ -1,1 +1,1 @@
-# link: https://tasks-react.netlify.app/new-account
+# link: https://tasks-react.netlify.app/
